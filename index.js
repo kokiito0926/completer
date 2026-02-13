@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
 // >> $ ./index.js --config ./example.js apps
+// >> $ ./index.js --config ./example.js apps info
+// >> $ ./index.js --config ./example.js apps info --json
+// >> $ ./index.js --config ./example.js apps info --short
 
 import { fs, path, argv } from "zx";
 import { pathToFileURL } from "node:url";
@@ -17,7 +20,7 @@ if (!configPath) {
 const config = await import(pathToFileURL(configPath).href);
 const root = config?.default;
 if (root === undefined) {
-	console.error("Error: Config file must have a default export.");
+	// console.error("Error: Config file must have a default export.");
 	process.exit(1);
 }
 
