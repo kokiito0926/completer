@@ -15,23 +15,19 @@ if (!configPath) {
 }
 
 const config = await import(pathToFileURL(configPath).href);
-if (!config) {
+const root = config?.default;
+if (root === undefined) {
+	console.error("Error: Config file must have a default export.");
 	process.exit(1);
 }
-// console.log(config);
-// console.log(config?.default);
-// process.exit(1);
 
-const words = argv._.slice(1);
+const words = argv._;
 const currentWord = words[words.length - 1] || "";
 const previousWords = words.slice(0, -1);
-// console.log(words);
-// console.log(currentWord);
-// console.log(previousWords);
 
-let currentNode = config?.default;
+let currentNode = root;
 for (const word of previousWords) {
-	if (currentNode[word]) {
+	if (currentNode && typeof currentNode === "object" && Object.hasOwn(currentNode, word)) {
 		currentNode = currentNode[word];
 	} else {
 		currentNode = null;
@@ -47,7 +43,8 @@ if (currentNode) {
 		candidates = Object.keys(currentNode);
 	}
 }
-// console.log(candidates)
 
 const filtered = candidates.filter((c) => c.startsWith(currentWord));
-console.log(filtered.join("\n"));
+if (filtered.length > 0) {
+	console.log(filtered.join("\n"));
+}
