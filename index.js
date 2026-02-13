@@ -1,4 +1,4 @@
-#!/usr/bin/env zx
+#!/usr/bin/env node
 
 // >> $ ./index.js --config ./example.js apps
 
