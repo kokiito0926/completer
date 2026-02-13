@@ -1,6 +1,6 @@
 {
 	"name": "@kokiito0926/completer",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"private": false,
 	"description": "入力補完をサポートすることができるコマンドラインのツールです。",
 	"keywords": [
