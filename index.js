@@ -21,7 +21,16 @@ if (root === undefined) {
 	process.exit(1);
 }
 
-const words = argv._;
+const rawWords = process.argv.slice(2);
+const words = [];
+for (let i = 0; i < rawWords.length; i++) {
+	if (rawWords[i] === "--config") {
+		i++; // Skip the flag value
+		continue;
+	}
+	words.push(rawWords[i]);
+}
+
 const currentWord = words[words.length - 1] || "";
 const previousWords = words.slice(0, -1);
 
